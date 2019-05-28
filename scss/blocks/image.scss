@@ -1,0 +1,24 @@
+.image-block {
+    flex-grow: 1;
+    // border-radius: var( --corner-radius );
+    // @extend .safari-border-fix;    
+    // overflow: hidden;
+    // img {
+    //     position: absolute;
+    //     top: 0;
+    //     left: 0;
+    //     width: 100%;
+    //     height: 100%;
+    //     object-fit: cover;
+    //     // opacity:0;
+    //     // transition: all 0.5s;
+    // }
+    // &--loaded img {
+        // opacity: 1;
+    // }
+    &__caption {
+        margin-top: var( --gutter );
+        display: block;
+        text-align: right;
+    }
+}

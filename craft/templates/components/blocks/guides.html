@@ -1,0 +1,35 @@
+
+
+{% if block.guides | length %}
+{% set count = block.guides | length %}
+<div class="grid grid--gutter">
+
+{% for entry in block.guides %}
+
+
+        <div class="
+        s-col-6 m-col-4 l-col-3 
+        {% switch count %}
+            {% case '1' %}
+            m-off-4 l-off-9
+            {% case '2' %}
+            {% if loop.first %}m-off-2 l-off-3{% endif %}
+            {% case '3' %}
+            {% if loop.first %}l-off-3{% endif %}
+        {% endswitch%}
+        pad-bottom">
+    
+            {% switch entry.type %}
+                {% case 'guide' %}
+                    {% include 'components/guide-thumbnail' with { guide: entry } only %}
+                {% case 'destination' %}
+                    {% include 'components/destination-thumbnail' with { destination: entry } only %}
+            {% endswitch %}
+        </div>
+
+
+{% endfor %}
+
+</div>
+
+{% endif %}

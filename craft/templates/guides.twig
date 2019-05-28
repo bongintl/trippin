@@ -1,0 +1,75 @@
+{% set entry = craft.entries.section('guidesPage').first() %}
+{% extends '_layout' %}
+{% block content %}
+    
+
+    {% set perPage = 6 %}
+    {% set page = craft.request.getParam( 'page' ) ?? 0 %}
+    {% set slug = craft.request.getSegment( 2 ) ?? null %}
+    {% set city = slug
+        ? craft.entries({
+            section: 'cities',
+            slug: slug,
+            with: craft.trippin.city_thumbnail_elements
+        }).first()
+        : null
+    %}
+    {% set entries = craft.entries({
+        section: 'guides',
+        relatedTo: city,
+        order: 'lft',
+        with: craft.trippin.guide_thumbnail_elements
+    }) %}
+    {% set near = null %}
+    {% if craft.request.getParam('near') %}
+        {% set parts = craft.request.getParam('near') | split(',') %}
+        {% set near = { lat: parts[ 0 ], lng: parts[ 1 ] } %}
+        {% set entries = entries
+            .location({ location: near, radius: 100000 })
+            .order('distance')
+        %}
+    {% endif %}
+    {% set max = entries.count %}
+    {% set nextPage = ( page + 1 ) * perPage < max
+        ? "#{ craft.request.url }?page=#{ page + 1 }"
+        : null
+    %}
+    {% set entries = entries.limit( perPage ).offset( perPage * page ) %}
+    
+    {% set cityList %}
+        {% if not city %}
+            {% include 'components/city-list' with {
+                cities: craft.entries({
+                    section: 'cities',
+                    order: 'title',
+                    limit: null
+                }),
+                nearbyActive: near
+            } only %}
+        {% endif %}
+    {% endset %}
+    
+    <div class="guides grid grid--gutter">
+        
+        <div class="city-list s-col-6 m-col-4 xl-col-3 m-show pad-bottom">
+            {% if city %}
+                <div class="city-list__cover">
+                    {% include 'components/city-thumbnail' with { city: city, cover: true, isFilter: true } only %}
+                </div>
+            {% else %}
+                {{ cityList }}
+            {% endif %}
+        </div>
+        
+        <div class="s-col-6 m-col-8 xl-col-9">
+            <div class="grid grid--gutter" data-load-more="{{ nextPage }}">
+                {% for guide in entries %}
+                    <div class="s-col-12 m-col-6 l-col-4 xl-col-3 pad-bottom">
+                        {% include 'components/guide-thumbnail' with { guide: guide } only %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}

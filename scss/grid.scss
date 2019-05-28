@@ -1,0 +1,94 @@
+.grid {
+    display: flex;
+    flex-wrap: wrap;
+    &--gutter {
+        padding-left: calc( var( --gutter ) / 2 );
+        padding-right: calc( var( --gutter ) / 2 );
+        & > [class*="-col-"] {
+            padding-left: calc( var( --gutter ) / 2 );
+            padding-right: calc( var( --gutter ) / 2 );
+            & > .grid--gutter {
+                margin-left: calc( var( --gutter ) * -1 );
+                margin-right: calc( var( --gutter ) * -1 );
+            }
+        }
+    }
+}
+
+[class*="-col-"] {
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+@mixin columns ( $prefix ) {
+    @for $i from 1 through 12 {
+        .#{ $prefix }-col-#{ $i } {
+            width: 100% * $i / 12;
+        }
+    }
+}
+
+@mixin offsets ( $prefix ) {
+    @for $i from 0 through 11 {
+        .#{ $prefix }-off-#{ $i } {
+            margin-left: 100% * $i / 12;
+        }
+    }
+}
+
+@mixin grid ( $prefix ) {
+    @include columns ( $prefix );
+    @include offsets ( $prefix );
+    .#{ $prefix }-hide {
+        display: none;
+    }
+    .#{ $prefix }-show {
+        display: initial;
+    }
+}
+
+@include grid( 's' );
+@include medium {
+    @include grid( 'm' );
+}
+@include large {
+    @include grid( 'l' );
+}
+@include xlarge {
+    @include grid( 'xl' );
+}
+@include xxlarge {
+    @include grid( 'xxl' );
+}
+
+@media ( orientation: portrait ) {
+    @include grid( 's-tall' );
+    @include medium {
+        @include grid( 'm-tall' );
+    }
+    @include large {
+        @include grid( 'l-tall' );
+    }
+    @include xlarge {
+        @include grid( 'xl-tall' );
+    }
+    @include xxlarge {
+        @include grid( 'xxl-tall' );
+    }
+}
+
+@media ( orientation: landscape ) {
+    @include grid( 's-wide' );
+    @include medium {
+        @include grid( 'm-wide' );
+    }
+    @include large {
+        @include grid( 'l-wide' );
+    }
+    @include xlarge {
+        @include grid( 'xl-wide' );
+    }
+    @include xxlarge {
+        @include grid( 'xxl-wide' );
+    }
+}

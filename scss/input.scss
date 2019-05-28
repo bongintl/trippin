@@ -1,0 +1,17 @@
+input.input {
+    background: none;
+    border: none;
+    font-size: var(--button-size);
+    border-bottom: 1px solid white;
+    max-width: 100%;
+    padding: 0.175em 0;
+    &:focus {
+        outline: none;
+    }
+    &::placeholder {
+        color: white;
+    }
+    &--black {
+        border-bottom: 1px solid black;
+    }
+}

@@ -1,0 +1,55 @@
+.guide-cover-portrait {
+    height: calc( 200vh - var(--nav-height) * 2 );
+    display: flex;
+    flex-direction: column;
+    pointer-events: none;
+    &__cover {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    }
+    &__image {
+        flex-shrink: 1;
+        flex-grow: 1;
+    }
+    &__title {
+        overflow: hidden;
+        flex-shrink: 0;
+        .category {
+            pointer-events: visible;
+        }
+    }
+    &__legend-spacer {
+        visibility: hidden;
+        @include show-dot-labels {
+            display: none;
+        }
+    }
+    &__legend {
+        @include show-dot-labels {
+            display: none;
+        }
+        position: absolute;
+        width: 100%;
+        height: calc( 100vh - var(--nav-height) );
+        top: 0;
+        left: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        position: sticky;
+        top: var( --nav-height );
+        pointer-events: none;
+        .legend {
+            pointer-events: visible;
+        }
+    }
+    &__space {
+        height: calc( 100vh - var( --nav-height ) );
+        flex-shrink: 0;
+    }
+    &__socials {
+        @extend .link;
+        pointer-events: visible;
+    }
+}

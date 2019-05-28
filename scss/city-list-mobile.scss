@@ -1,0 +1,25 @@
+.city-list-mobile {
+    position: fixed;
+    z-index: 1000;
+    opacity: 0;
+    top: var(--nav-height);
+    left: 0;
+    width: 50%;
+    height: calc( 100% - var(--nav-height));
+    background-color: red;
+    &--open {
+        transform: translateX(0);
+    }
+    &__scroll {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        display: flex;
+        flex-wrap: wrap;
+    }
+    li {
+        padding-left: var(--gutter);
+        display: block;
+        padding-bottom: .5em;
+        width: 100%;
+    }
+}

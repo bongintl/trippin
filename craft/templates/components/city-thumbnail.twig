@@ -1,0 +1,87 @@
+{% set isFilter = isFilter ?? false %}
+{% set cover = cover ?? false %}
+{% set inline = inline ?? false %}
+
+{% set color = city.continent | length
+    ? city.continent[ 0 ].color ?: '#FFFF00'
+    : '#FFFF00'
+%}
+
+{% set attributes = attrs({
+    class: bem( 'city-thumbnail', { cover: cover, inline: inline } ) ~ " lazy",
+    "data-loaded-class": "city-thumbnail--loaded"
+}) %}
+
+{% set contents %}
+    
+    {% set satUrl = craft.mapUtils.satelliteImageUrl( city.title ) %}
+    {% set imagerConfig = { useRemoteUrlQueryString: true, imgixEnabled: false } %}
+    {% set imageConfig = { width: 640, height: 1280, cropZoom: 1.1, format: 'jpg' } %}
+    {% set sat = craft.imager.transformImage( satUrl,
+        imageConfig | merge({ effects: { normalize: true, modulate: [ 100, 180, 100 ] } }),
+        null, imagerConfig
+    ) %}
+    {% set equalized = craft.imager.transformImage( satUrl,
+        imageConfig | merge({ effects: { equalize: true, blur: 1 } }),
+        null, imagerConfig
+    ) %}
+    
+    <div
+        class="shader cover"
+        data-shader-options="{{ {
+            tint: color
+        } | json_encode | e('html_attr') }}"
+        style="background-color: {{ color }}"
+    >
+        <img srcset="{{ srcset( sat ) }}" class="shader__texture" crossorigin>
+        <img srcset="{{ srcset( equalized ) }}" class="shader__texture" crossorigin>
+    </div>
+    
+    <div class="city-thumbnail__inner">
+        
+        {% set guides = craft.entries({ section: 'guides', relatedTo: city, with: 'guideAuthor' }) %}
+        
+        <div class="city-thumbnail__icons">
+            <div class="city-thumbnail__logo">
+                <img src="{{ siteUrl }}assets/static/logo_white.svg" alt="">
+            </div>
+            {% if isFilter %}
+                <a class="city-thumbnail__close" href="{{ siteUrl }}guides"></a>
+            {% endif %}
+        </div>
+        
+        <div class="city-thumbnail__top-text">
+            <h3>{{ city.title }}</h3>
+            <small>
+                {{ guides | length }}
+                {{ guides | length == 1 ? 'guide' : 'guides' }}
+            </small>
+        </div>
+        
+        <small class="city-thumbnail__text">
+            {% if isFilter and city.tip %}
+                {{ city.tip }}
+            {% else %}
+                with<br>
+                {% set authors = [] %}
+                {% for guide in guides.slice( 0, 12 ) %}
+                    {% for author in guide.guideAuthor %}
+                        {% set authors = authors | merge([ author.title ]) %}
+                    {% endfor %}
+                {% endfor %}
+                {{ authors | join( ', ' ) }}
+            {% endif %}
+        </small>
+        
+    </div>
+{% endset %}
+
+{% if isFilter %}
+    <div {{ attributes }}>
+        {{ contents }}
+    </div>
+{% else %}
+    <a href="{{ city.url }}" {{ attributes }}>
+        {{ contents }}
+    </a>
+{% endif %}

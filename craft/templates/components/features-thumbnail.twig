@@ -1,0 +1,29 @@
+<div 
+    class="features-thumbnail pad-bottom lazy 
+    {% if class is defined %}features-thumbnail--{{ class }}{% endif %}" 
+    data-loaded-class="features-thumbnail--loaded"
+>
+    
+    <div class="features-thumbnail__inner">
+        
+        <a href="{{ feature.url }}">
+            <div class="features-thumbnail__image">
+                {% for hero in feature.hero %}
+                    <img class="cover rounded" {{ lazy( hero ) }}/>
+                {% endfor %}
+            </div>
+        </a>
+        
+        <div class="features-thumbnail__text">
+            <div class="features-thumbnail__type">
+                {% for cat in feature.featureType %}
+                    <a href="{{ cat.url }}" class="category">{{ cat.title }}</a>
+                {% endfor %}
+            </div>
+            <a href="{{ feature.url }}">
+                <h3>{{ feature.title }}</h3> 
+            </a>
+        </div>
+        
+    </div>
+</div>

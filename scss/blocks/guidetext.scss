@@ -1,0 +1,14 @@
+.guidetext-block {
+    &__description {
+        font-size: 1.25em;
+        margin-bottom: -1em;
+    
+        p {
+            margin-bottom: 1em;
+        }
+        
+        a {
+            @extend .link;
+        }
+    }
+}

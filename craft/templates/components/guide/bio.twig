@@ -1,0 +1,16 @@
+<div class="bio">
+    {% for block in bio %}
+        {% switch block.type %}
+            {% case 'text' %}
+                <div class="bio__text gap-bottom">
+                    {{ block.text }}
+                </div>
+            {% case 'image' %}
+                {% for image in block.image %}
+                    <div class="gap-bottom" style="padding-bottom: {{ image.height / image.width * 100 }}%">
+                        <img class="cover rounded lazy" {{ lazy( image ) }}></img>
+                    </div>
+                {% endfor %}
+        {% endswitch %}
+    {% endfor %}
+</div>

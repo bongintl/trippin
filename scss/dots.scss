@@ -1,0 +1,45 @@
+.dots {
+    position: absolute;
+    --padding: calc( var( --gutter ) + var( --dot-size ) / 2 );
+    top: var( --padding );
+    left: var( --padding );
+    bottom: var( --padding );
+    right: var( --padding );
+    &--large {
+        --padding: calc( var( --gutter ) + var( --dot-size ) );
+    }
+    &__dot {
+        width: var( --dot-size );
+        height: var( --dot-size );
+        margin-top: calc( var( --dot-size ) / -2 );
+        margin-left: calc( var( --dot-size ) / -2 );
+        border-radius: 50%;
+        background: var( --dot-gradient );
+        position: absolute;
+        transform-origin: 50% 50%;
+        transform: translate(0,0);
+        opacity: 0;
+        // transition: transform 3s, opacity 1s;
+        @for $i from 0 through 20 {
+            &:nth-child(#{$i+1}) {
+                transition: transform 3s $i * 50ms, opacity 1s $i * 100ms;
+            }
+        }
+        .dots--large & {
+            width: calc( var( --dot-size ) * 2 );
+            height: calc( var( --dot-size ) * 2 );
+            margin-top: calc( var( --dot-size ) * -1 );
+            margin-left: calc( var( --dot-size ) * -1 );
+        }
+        .no-touch .thumbnail:hover &,
+        .thumbnail:not( .thumbnail--loaded ) & {
+            transform: scale( 1.75, 1.75 );
+            // transition: transform .5s, opacity 1s;
+            @for $i from 0 through 20 {
+                &:nth-child(#{$i+1}) {
+                    transition: transform .75s $i * 30ms, opacity 1s $i * 100ms;
+                }
+            }
+        }
+    }
+}

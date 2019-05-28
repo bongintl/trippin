@@ -1,0 +1,17 @@
+{% extends "_layout" %}
+
+{% block content %}
+    
+
+    
+    <div class="grid grid--gutter pad-bottom-l">
+        <div class="s-col-12 m-col-8 m-off-4 pad-bottom">
+           <h2>{{ entry.title }}</h2>
+        </div>
+    </div>
+    	
+	
+   {% include '/components/blocks' with { blocks: entry.blocks } only %}
+
+
+{% endblock %}

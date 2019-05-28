@@ -1,0 +1,25 @@
+.cookie {
+    z-index: 10000;
+    position: fixed;
+    bottom: 0;
+    background-color: black;
+    color: white;
+    right: 0;
+    width: 100%;
+    padding: 20px;
+    text-align: center;
+    @include medium {
+        height: 68px;
+    }
+    @include show-full-nav {
+        width: calc( 100% - calc(var( --nav-width ) + var(--gutter) );
+    }
+    .cookie__consent {
+        margin-left: var(--gutter);
+        display: block;
+        
+        @include medium {
+            display: inline;
+        }
+    }
+}

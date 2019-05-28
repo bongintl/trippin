@@ -1,0 +1,47 @@
+{
+  "name": "workspace",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build-sass": "node-sass scss/style.scss | postcss --use autoprefixer > assets/static/style.css",
+    "watch-sass": "npm run build-sass && onchange 'scss/**/*' -- npm run build-sass",
+    "build-js": "browserify js/main.js -t glslify -t [ babelify --presets [ @babel/preset-env ] ] | uglifyjs -c -m > assets/static/bundle.js",
+    "watch-js": "watchify js/main.js -t glslify -o assets/static/bundle.js -v",
+    "dev": "npm run watch-sass & npm run watch-js",
+    "build": "npm run build-sass && npm run build-js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.3.3",
+    "@babel/preset-env": "^7.3.1",
+    "autoprefixer": "^9.4.10",
+    "babelify": "^10.0.0",
+    "browserify": "^16.2.3",
+    "bulkify": "^1.4.2",
+    "node-sass": "^4.11.0",
+    "onchange": "^5.2.0",
+    "postcss": "^7.0.14",
+    "postcss-cli": "^6.1.2",
+    "uglify-js": "^3.4.9",
+    "watchify": "^3.11.1"
+  },
+  "dependencies": {
+    "bem-classname": "^0.1.1",
+    "es6-map": "^0.1.5",
+    "es6-weak-map": "^2.0.2",
+    "gl-shader": "^4.2.1",
+    "gl-vec2": "^1.3.0",
+    "glslify": "^7.0.0",
+    "gyronorm": "^2.0.6",
+    "intersection-observer": "^0.5.1",
+    "masonry-layout": "^4.2.2",
+    "nanomorph": "^5.4.0",
+    "ndarray": "^1.0.18",
+    "p2": "^0.7.1",
+    "resize-observer-polyfill": "^1.5.1",
+    "tinycolor2": "^1.4.1"
+  }
+}

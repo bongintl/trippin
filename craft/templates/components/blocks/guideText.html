@@ -1,0 +1,38 @@
+{% if block.guides | length %}
+<div class="grid grid--gutter guidetext-block">
+
+{% for entry in block.guides %}
+
+    <div class="
+    s-col-6 m-col-4 l-col-3 
+    {% if not block.description %}
+        {% if loop.first %}
+            m-off-2 l-off-3
+        {% endif %}
+    {% else %}
+    
+        {% if block.guides|length == '1' %}l-off-1{% endif %} 
+    
+    {% endif %}
+    pad-bottom-l
+    ">
+        {% switch entry.type %}
+            {% case 'guide' %}
+                {% include 'components/guide-thumbnail' with { guide: entry } only %}
+            {% case 'destination' %}
+                {% include 'components/destination-thumbnail' with { destination: entry } only %}
+        {% endswitch %}
+    </div>
+
+     
+{% endfor %}
+
+    {% if block.description %}
+        <div class="s-col-12 {% if block.guides|length == '2' %}m-col-4 l-col-6 {% else %}m-col-8 l-col-6 {% endif %} guidetext-block__description pad-bottom-l">
+            {{ block.description }}
+        </div>
+    {% endif %}
+
+</div>
+
+{% endif %}

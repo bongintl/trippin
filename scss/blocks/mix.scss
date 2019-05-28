@@ -1,0 +1,11 @@
+.mix-block {
+    border-radius: var( --corner-radius );
+    overflow: hidden;
+    iframe {
+        width: 100%;
+        display: block;
+        margin: 0;
+        padding: 0;
+        height: 80px;
+    }
+}

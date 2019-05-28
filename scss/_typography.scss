@@ -1,0 +1,85 @@
+@font-face {
+    src: url(/assets/static/favorit-std-regular.woff);
+    font-family: Favorit;
+}
+
+@font-face {
+    src: url(/assets/static/favorit-std-bold.woff);
+    font-family: Favorit;
+    font-weight: bold;
+}
+
+@font-face {
+    src: url(/assets/static/favorit-std-regular-italic.woff);
+    font-family: Favorit;
+    font-style: italic;
+}
+
+html {
+    font-family: Favorit, sans-serif;
+}
+
+small {
+    font-size: var( --small-size );
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: .09em;
+}
+
+i,
+em {
+    font-style: italic;
+}
+
+h1, 
+h2, 
+h3,
+h4 {
+    font-weight: normal;
+}
+
+h1 {
+    font-size: var( --h1-size );
+    line-height: var( --heading-line-height );
+    letter-spacing: -.05em;
+}
+
+h2 {
+    font-size: var( --h2-size );
+    line-height: var( --heading-line-height );
+    letter-spacing: -.05em;
+}
+
+h3 {
+    font-size: var( --h3-size );
+    line-height: var( --heading-line-height );
+    letter-spacing: -.05em;
+}
+
+.link {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 0.7em;
+    letter-spacing: .03em;
+    border-bottom: 1px solid black;
+    &--black {
+        border-bottom: 1px solid white;
+    }
+    &:hover {
+        border-bottom: 1px solid transparent;
+    }
+}
+
+.stroke {
+    -webkit-text-fill-color: white;
+    -webkit-text-stroke-color: black;
+    -webkit-text-stroke-width: .5px;
+}
+
+// .truncate {
+//     display: block;
+//     width: 100%;
+//     white-space: nowrap;
+//     text-overflow: ellipsis;
+//     overflow: hidden;
+// }

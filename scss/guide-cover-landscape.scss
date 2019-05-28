@@ -1,0 +1,42 @@
+.guide-cover-landscape {
+    &__image {
+        position: sticky;
+        top: var(--gutter);
+        img {
+            object-fit: cover;
+            min-height: calc( 100vh - var( --gutter ) * 2 );
+            object-position: top center;
+            // min-height: calc( 100vh - var( --gutter ) * 2 );
+        }
+    }
+    &__bounds {
+        height: calc( 100vh - var( --gutter ) * 2 );
+        position: fixed;
+    }
+    &__text {
+        position: sticky;
+        top: var(--gutter);
+    }
+    &__title {
+        min-height: calc( 100vh - var( --gutter ) * 2 );
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: flex-start;
+    }
+    h1 {
+        font-size: var(--h2-size);
+    }
+    &__contents {
+        min-height: 100vh;
+        justify-content: flex-end;
+        align-items: flex-start;
+    }
+    &__legend {
+        position: sticky;
+        top: 0;
+    }
+    &__socials {
+        @extend .link;
+    }
+}

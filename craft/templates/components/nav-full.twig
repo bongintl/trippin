@@ -1,0 +1,50 @@
+<nav class="nav-full">
+    <a href="{{ siteUrl }}" class="nav-full__item nav-full__item--icon">
+        <img src="{{ siteUrl }}assets/static/logo_black.svg"/>
+    </a>
+    <a href="{{ siteUrl }}guides" class="nav-full__item nav-full__item--link">
+        Guides
+    </a>
+    <a href="{{ siteUrl }}features" class="nav-full__item nav-full__item--link">
+        Features
+    </a>
+    <a href="{{ siteUrl }}info" class="nav-full__item nav-full__item--link">
+        Info
+    </a>
+    {% if globals.shopUrl %}
+        <a href="{{ globals.shopUrl }}" class="nav-full__item nav-full__item--link">
+            Duty Free
+        </a>
+    {% endif %}
+    <a href="{{ siteUrl }}page/join" class="nav-full__item nav-full__item--link">
+        Join
+    </a>
+    <a href="#" class="nav-full__item nav-full__item--icon toggle-search">
+        <img src="{{ siteUrl }}assets/static/search.svg"/>
+    </a>
+    {#<div class="nav-full__items">#}
+    {#    <a href="{{ siteUrl }}" class="nav-full__item">#}
+    {#        <img src="{{ siteUrl }}assets/static/logo_black.svg"/>#}
+    {#    </a>#}
+    {#    <a href="{{ siteUrl }}guides" class="nav-full__item">#}
+    {#        Guides#}
+    {#    </a>#}
+    {#    <a href="{{ siteUrl }}features" class="nav-full__item">#}
+    {#        Features#}
+    {#    </a>#}
+    {#    <a href="{{ siteUrl }}info" class="nav-full__item">#}
+    {#        Info#}
+    {#    </a>#}
+    {#    {% if globals.shopUrl %}#}
+    {#        <a href="{{ globals.shopUrl }}" class="nav-full__item">#}
+    {#            Duty Free#}
+    {#        </a>#}
+    {#    {% endif %}#}
+    {#    <a href="{{ siteUrl }}page/join" class="nav-full__item">#}
+    {#        Join#}
+    {#    </a>#}
+    {#</div>#}
+    {#<a href="#" class="nav-full__search toggle-search">#}
+    {#    <img src="{{ siteUrl }}assets/static/search.svg"/>#}
+    {#</a>#}
+</nav>

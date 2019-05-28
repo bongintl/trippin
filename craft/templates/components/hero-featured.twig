@@ -1,0 +1,35 @@
+{% switch block.type %}
+    {% case 'entry' %}
+        {% for entry in block.entry %}
+            {% switch entry.type %}
+                {% case 'guide' %}
+                    {% include 'components/guide-thumbnail' with { guide: entry, hero: true } only %}
+                {% case 'city' %}
+                    {% include 'components/city-thumbnail' with { city: entry, hero: true } %}
+                {% case 'feature' %}
+                    {% include 'components/thumbnail' with {
+                        hero: true,
+                        url: entry.url,
+                        image: entry.hero[ 0 ] ?? null,
+                        categories: entry.featureType | pluck([ 'title', 'url' ]),
+                        title: entry.title,
+                        href: entry.url
+                    } %}
+                {% default %}
+                    Can't render {{ entry.type }}
+            {% endswitch %}
+        {% endfor %}
+    {% case 'externalLink' %}
+        {% set image %}
+            {% for img in block.image %}
+                <img class="cover rounded" srcset="{{ srcset( img, 'guide' ) }}">
+            {% endfor %}
+        {% endset %}
+        {% include 'components/thumbnail' with {
+            hero: true,
+            title: block.linkTitle,
+            image: image,
+            href: block.linkUrl,
+            target: block.openInNewTab ? '_blank' : null
+        } %}
+{% endswitch %}

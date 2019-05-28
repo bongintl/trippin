@@ -1,0 +1,33 @@
+{% set size = block.size %}
+
+{% if size == 'large' %}
+
+    {% set width = 'm-col-10' %}
+    {% if block.position == 'right' %}
+        {% set position = "m-off-2" %}
+    {% elseif block.position == 'middle' %}
+        {% set position = "m-off-1" %}
+    {% else %}
+        {% set position = "" %}
+    {% endif %}
+    
+{% else %}
+
+    {% set width = 'm-col-8' %}
+    {% if block.position == 'right' %}
+        {% set position = "m-off-4" %}
+    {% elseif block.position == 'middle' %}
+        {% set position = "m-off-2" %}
+    {% else %}
+        {% set position = "" %}
+    {% endif %}
+    
+{% endif %}
+
+
+<div class="grid grid--gutter pad-bottom-l largetext-block">
+    <div class="s-col-12 {{ width }} {{ position }}">
+        {{ block.body }}
+    </div>
+</div>
+    

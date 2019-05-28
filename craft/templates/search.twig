@@ -1,0 +1,56 @@
+{% extends '_layout' %}
+{% block searchResults %}
+
+    {% set query = craft.request.getSegment( 2 ) %}
+    {% set results = craft.entries({
+        section: 'cities, guides, features',
+        search: query,
+        order: 'score'
+    }) %}
+    
+    {% if results | length == 0 %}
+    
+        <div class="grid grid--gutter">
+            <div class="s-col-12">
+                <h3>No Results</h3>
+            </div>
+        </div>
+        
+    {% else %}
+    
+        {% set types = {
+            "guides": results
+                .section( 'guides, cities' )
+                .with( craft.trippin.guide_thumbnail_elements | merge( craft.trippin.city_thumbnail_elements ) ),
+            "features": results
+                .section( 'features' )
+                .with( craft.trippin.feature_thumbnail_elements )
+        } %}
+        
+        {% set scores = {} %}
+        {% for type, entries in types %}
+            {% set scores = scores | merge({
+                ( type ): entries | length ? entries[ 0 ].searchScore : -1,
+            }) %}
+        {% endfor %}
+        
+        {% for type, score in scores | sort | reverse if types[ type ] | length %}
+            <div class="search__section pad-bottom" id="{{ type }}">
+                {% for entry in types[ type ] %}
+                    <div class="search__result" id="{{ entry.id }}">
+                        {% switch entry.type %}
+                            {% case 'guide' %}
+                                {% include 'components/guide-thumbnail' with { guide: entry } only %}
+                            {% case 'city' %}
+                                {% include 'components/city-thumbnail' with { city: entry } only %}
+                            {% case 'feature' %}
+                                {% include 'components/features-thumbnail' with { feature: entry } only %}
+                        {% endswitch %}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+        
+    {% endif %}
+    
+{% endblock %}

@@ -1,0 +1,37 @@
+.button {
+    display: block;
+    background: none;
+    border-radius: 1.75em;
+    padding: 0.75em 0.5em;
+    margin: 0.5em 0;
+    border: 1px solid white;
+    transition: transform 0.5s;
+    text-align: center;
+    cursor: pointer;
+    font-size: var(--button-size);
+    --vertical-spacing: calc( var( --gutter ) / 2 );
+    &:hover {
+        // transform: translateY(var(--vertical-spacing));    
+        background-color: white;
+        color: black;
+    }
+    &--small {
+        font-size: 1rem;
+        padding: 0.25em 0.75em;
+        @extend small;
+        cursor: pointer;
+    }
+    &--black {
+        border: 1px solid black;
+        &:hover {
+            background-color: black;
+            color: white;
+        }
+    }
+    &--submit {
+        padding: 0.5em 0;
+        @include medium {
+            padding: 0.25em 0;
+        }
+    }
+}

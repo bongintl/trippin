@@ -1,0 +1,30 @@
+.category {
+    display: inline-block;
+    font-size: var( --small-size );
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: .09em;
+    line-height: 1;
+    border-radius: 2.05em;
+    border: 1px solid;
+    padding: .6em 1em .45em 1em;
+    transition: color .1s, background-color .1s, border-color .1s;
+    // transition: border-radius .5s;
+    @include medium {
+        padding: .25em .7em .15em .7em;
+    }
+    &[href]:hover {
+        color: white;
+        background: black;
+        border: 1px solid black;
+        // border-radius: 0;
+    }
+    &--light {
+        border: 1px solid white;
+            &[href]:hover {
+            color: black;
+            background: white;
+        }
+    }
+    
+}

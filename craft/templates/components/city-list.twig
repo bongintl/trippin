@@ -1,0 +1,12 @@
+<li>
+    {% if nearbyActive %}
+        <a class="category" href='{{ siteUrl }}guides'>Nearby &times;</a>
+    {% else %}
+        <a class="nearby category" href='#'>Nearby</a>
+    {% endif %}
+</li>
+{% for city in cities %}
+    <li>
+        <a class="category" href="{{ city.url }}">{{ city.title }}</a>
+    </li>
+{% endfor %}

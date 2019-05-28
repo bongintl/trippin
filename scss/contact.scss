@@ -1,0 +1,38 @@
+.contact {
+    &__form {
+        margin-top: var(--nav-height);
+        padding: var(--gutter) var(--gutter) calc(var(--gutter)*4) var(--gutter);
+        background-color: black;
+        @include medium {
+            margin-top: 0;
+            padding: 0;
+            padding-bottom: calc(var(--gutter)*4);
+        }
+    }
+    p {
+        margin-bottom: 1em;
+        margin-right: 1em;
+        @include medium {
+            margin-right: 0;
+        }
+    }
+    a {
+        @extend .link;
+    }
+    label {
+        display: block;
+    }
+    input[type=text],
+    input[type=email],
+    textarea {
+        @extend input.input;
+        @extend input.input--black;
+        width: 100%;
+    }
+    textarea {
+        resize: none;
+        -webkit-box-sizing: border-box;
+           -moz-box-sizing: border-box;
+                box-sizing: border-box;
+    }
+}

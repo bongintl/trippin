@@ -1,0 +1,11 @@
+{% set inline = inline ?? false %}
+<ul class="{{ bem('legend', { inline: inline } ) }}">
+    {% for spot in spots %}
+        <li>
+            <a href="#{{ loop.index }}">
+                <div class="legend__dot">{{ loop.index }}</div>
+                <small>{{ spot }}</small>
+            </a>
+        </li>
+    {% endfor %}
+</ul>

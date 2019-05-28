@@ -1,0 +1,215 @@
+// .guide-thumbnail {
+//     display: block;
+//     width: 100%;
+//     height: 0;
+//     padding-bottom: calc( var( --thumbnail-ratio ) * 100% );
+//     --vertical-spacing: var( --gutter );
+//     @include large {
+//         --vertical-spacing: calc( var( --gutter ) * .75 );
+//     }
+//     &__inner {
+//         display: flex;
+//         flex-direction: column;
+//         align-items: flex-start;
+//     }
+//     &__image {
+//         width: 100%;
+//         flex-grow: 1;
+//         margin-bottom: var( --vertical-spacing );
+//         &--dark {
+//             filter: grayscale( 100% );
+//             img { opacity: .4; }
+//         }
+//         &--light {
+//             filter: grayscale( 100% );
+//             img { opacity: .4; }
+//         }
+//     }
+//     &__category {
+//         margin-bottom: var( --vertical-spacing );
+//     }
+//     &__text {
+//         flex-grow: 0;
+//     }
+//     &__title {
+//         height: calc( var( --heading-line-height ) * 1em * 3 );
+//         overflow: hidden;
+//     }
+// }
+
+// .guide-thumbnail {
+//     --title-size: var( --h3-size );
+//     --place-size: var( --small-size );
+//     --vertical-spacing: var( --gutter );
+//     --guide-thumbnail-dot-size: var( --dot-size );
+//     @include large {
+//         --vertical-spacing: calc( var( --gutter ) * .75 );
+//     }
+//     --text-height: calc(
+//         var( --vertical-spacing ) * 2 +
+//         var( --place-size ) +
+//         var( --title-size ) * var( --heading-line-height ) * 3
+//     );
+//     display: block;
+//     width: 100%;
+//     height: 0;
+//     padding-bottom: calc( var( --thumbnail-ratio ) * 100% );
+//     overflow: hidden;
+//     // transition: transform 1s;
+//     &__text, &__sticky, &__image img {
+//         opacity: 0;
+//         transition: opacity 1s;
+//         .guide-thumbnail--loaded & {
+//             opacity: 1;
+//         }
+//     }
+//     &--hero {
+//         background: white;
+//         overflow: initial;
+//         --title-size: calc( var( --h3-size ) * 2 );
+//         --place-size: calc( var( --small-size ) * 1.5 );
+//         --guide-thumbnail-dot-size: calc( var( --dot-size ) * 2 );
+//         @include medium {
+//             max-height: none;
+//             padding-bottom: calc( var( --thumbnail-ratio ) * 100% - var( --gutter ) );
+//             .guide-thumbnail__place {
+//                 border: 1px solid white;
+//                 &:hover {
+//                     color: black;
+//                     background: white;
+//                 }
+//             }
+//         }
+//         @include large {
+//             --place-size: calc( var( --small-size ) * 2 );
+//             --vertical-spacing: calc( var( --gutter ) * 1.5 );
+//         }
+//     }
+//     &__image {
+//         width: 100%;
+//         padding-bottom: calc( var( --thumbnail-ratio ) * 100% - var( --text-height ) );
+//         border-radius: var( --corner-radius );
+//         @extend .safari-border-fix;    
+//         overflow: hidden;
+//         img {
+//             position: absolute;
+//             top: 0;
+//             left: 0;
+//             width: 100%;
+//             height: 100%;
+//             object-fit: cover;
+//         }
+//         &--placeholder {
+//             border: 1px solid black !important;
+//         }
+//         &--dark {
+//             filter: grayscale( 100% );
+//             img {
+//                 opacity: .4;
+//             }
+//         }
+//         &--light {
+//             filter: grayscale( 100% );
+//             opacity: .4;
+//         }
+//     }
+//     &__text {
+//         width: 100%;
+//         @include medium {
+//             .guide-thumbnail--hero & {
+//                 visibility: hidden;
+//                 padding-right: calc( var( --gutter ) * 2 );
+//             }
+//         }
+//     }
+//     &__place {
+//         display: block;
+//         line-height: 1;
+//         padding: .25em .7em .15em .7em;
+//         margin: var( --vertical-spacing ) 0;
+//         display: inline-block;
+//         font-size: calc(var( --place-size ) * .8);
+//         border: 1px solid black;
+//         border-radius: 100vw;
+//         pointer-events: visible;
+//         @include medium {
+//             .guide-thumbnail--hero & {
+//                 border: 1px solid white;
+//             }
+//         }
+//         @include xxlarge {
+//             font-size: var( --place-size );
+//         }
+//         &:hover {
+//             background: black;
+//             color: white;
+//         }
+//     }
+//     &__title {
+//         font-size: var( --title-size );
+//         &--stroke {
+//             -webkit-text-fill-color: white;
+//             -webkit-text-stroke-color: black;
+//             -webkit-text-stroke-width: .5px;
+//         }
+//     }
+//     &__dots {
+//         position: absolute;
+//         top: calc( var( --gutter ) + var( --guide-thumbnail-dot-size ) / 2 );
+//         left: calc( var( --gutter ) + var( --guide-thumbnail-dot-size ) / 2 );
+//         bottom: calc( var( --gutter ) + var( --guide-thumbnail-dot-size ) / 2 );
+//         right: calc( var( --gutter ) + var( --guide-thumbnail-dot-size ) / 2 );
+//     }
+//     &__dot {
+//         width: var( --guide-thumbnail-dot-size );
+//         height: var( --guide-thumbnail-dot-size );
+//         border-radius: 50%;
+//         // background: var( --guide-color );
+//         background: var( --dot-gradient );
+//         // opacity: .8;
+//         position: absolute;
+//         margin-top: calc( var( --guide-thumbnail-dot-size ) / -2 );
+//         margin-left: calc( var( --guide-thumbnail-dot-size ) / -2 );
+//         transform-origin: 50% 50%;
+//         transition: transform 3s;
+//         transform: translate(0,0);
+//         .no-touch .guide-thumbnail:hover & {
+//             transform: scale( 1.75, 1.75 );
+//             transition: transform .5s;
+//         }
+//     }
+//     &__sticky {
+//         position: absolute;
+//         top: 0;
+//         left: 0;
+//         bottom: 0;
+//         right: 0;
+//         pointer-events: none;
+//     }
+//     &__sticky-text {
+//         display: none;
+//         @include medium {
+//             display: flex;
+//         }
+//         flex-direction: column;
+//         justify-content: flex-end;
+//         align-items: flex-start;
+//         height: 100%;
+//         max-height: calc( 100vh - ( var( --gutter ) + var( --nav-height ) ) );
+//         position: sticky;
+//         top: var( --nav-height );
+//         color: white;
+//         mix-blend-mode: difference;
+//         padding-right: calc( var( --gutter ) * 2 );
+//         transition: transform 1s, opacity 1s;
+//         &--stuck {
+//             transform: translateX( var( --gutter ) );
+//         }
+//         // .no-touch .guide-thumbnail:hover &--unstuck {
+//         //     transform: translateY(var(--vertical-spacing));
+//         // }
+//     }
+//     // .no-touch &:hover {
+//     //     transform: translateY(var(--vertical-spacing));
+//     // }
+// }

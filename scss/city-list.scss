@@ -1,0 +1,22 @@
+.city-list {
+    height: calc( 100vh - var( --nav-height ) );
+    position: sticky;
+    top: var( --nav-height );
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 5rem;
+    &__cover {
+        position: absolute;
+        left: calc( var( --gutter ) / 2 );
+        right: calc( var( --gutter ) / 2 );
+        top: 0;
+        bottom: var( --gutter );
+    }
+    li {
+        margin-bottom: 0.25em;
+        @include medium {
+            margin-bottom: 0;
+        }
+    
+    }
+}

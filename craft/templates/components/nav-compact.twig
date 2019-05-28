@@ -1,0 +1,37 @@
+<div class="nav-compact">
+    <div class="nav-compact__items">
+        <a href="{{ siteUrl }}" class="nav-compact__item">
+            <img src="{{ siteUrl }}assets/static/logo_black.svg"/>
+        </a>
+        <a class="nav-compact__item toggle-search">
+            <img src="{{ siteUrl }}assets/static/search.svg"/>
+        </a>
+        <a class="nav-compact__item toggle-menu">
+            <img src="{{ siteUrl }}assets/static/burger.svg"/>
+        </a>
+    </div>
+    <div class="nav-compact__menu">
+        <div class="nav-compact__menu-items">
+            <a class="nav-compact__menu-item toggle-menu">
+                <img src="{{ siteUrl }}assets/static/x.svg"/>
+            </a>
+            <a href="{{ siteUrl }}guides" class="nav-compact__menu-item">
+                Guides
+            </a>
+            <a href="{{ siteUrl }}features" class="nav-compact__menu-item">
+                Features
+            </a>
+            <a href="{{ siteUrl }}info" class="nav-compact__menu-item">
+                Info
+            </a>
+            {% if globals.shopUrl %}
+                <a href="{{ globals.shopUrl }}" class="nav-compact__menu-item">
+                    Duty Free
+                </a>
+            {% endif %}
+            <a href="{{ siteUrl }}page/join" class="nav-compact__menu-item">
+                Join
+            </a>
+        </div>
+    </div>
+</div>

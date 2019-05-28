@@ -1,0 +1,9 @@
+{% macro rgba( color, alpha ) %}{% spaceless %}
+    {% set color = hex_to_rgb( color ) %}
+    {{ "rgba( #{ color[ 0 ] }, #{ color[ 1 ] }, #{ color[ 2 ] }, #{ alpha } )" }}
+{% endspaceless %}{% endmacro %}
+
+{% macro dotGradient( color ) %}{% spaceless %}
+    {% import _self as colors %}
+    {{ "radial-gradient( circle at center, #{ colors.rgba( color, 1 ) } 40%, #{ colors.rgba( color, 0 ) } 70% )" }}
+{% endspaceless %}{% endmacro %}

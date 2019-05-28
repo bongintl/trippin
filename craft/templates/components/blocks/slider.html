@@ -1,0 +1,26 @@
+{% if block.files | length %}
+
+
+<div class="grid">
+    <div class="s-col-12 pad-bottom-l">
+        <div class="slider-block drag">
+            
+            {% for image in block.files %}
+            
+            {% set height = image.height %}
+            {% set width = image.width %}
+            
+            <div class="slider-block__item slider-block__item--landscape lazy" style="width: {{  width / height * 100 ~ 'vh' }}">
+                <img {{ lazy( image ) }} alt="">
+            </div>
+            <div class="slider-block__item slider-block__item--portrait lazy" style="width: {{  width / height * 50 ~ 'vh' }}">
+                <img {{ lazy( image ) }} alt="">
+            </div>
+            {% endfor %}
+
+    
+        </div>
+    </div>
+</div>
+
+{% endif %}

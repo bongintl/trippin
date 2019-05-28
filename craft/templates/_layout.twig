@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" href="{{ siteUrl }}assets/static/style.css{{ craft.config.devMode ? '?' ~ random() : '' }}" type="text/css" />
+        {% if entry is defined %}
+            {% set seo = entry.seo %}
+            {% hook "seo" %}
+        {% else %}
+            <title>{{ siteName }}</title>
+        {% endif %}
+    	{% if globals.favicon16 | length %}<link rel="icon" href="{{ globals.favicon16.first.url }}" sizes="16x16">{% endif %}
+        {% if globals.favicon32 | length %}<link rel="icon" href="{{ globals.favicon32.first.url }}" sizes="32x32">{% endif %}
+    </head>
+    <body>
+        
+    	{% include 'components/nav-full' %}
+    	{% include 'components/nav-compact' %}
+		{% block content %}{% endblock %}
+    	{% include 'components/footer' %}
+    	
+    	<div class="search">
+    	    <div class="search__inner">
+                <div class="grid grid--gutter pad-bottom search__input-container">
+                    <div class="s-col-12 search__input">
+                        <input type="text" name="search" placeholder="Where to?"/>
+                        <div class="search__busy"></div>
+                        <div class="search__close toggle-search"></div>
+                    </div>
+                </div>
+                <div class="search__results">
+                    {% block searchResults %}{% endblock %}
+                </div>
+            </div>
+            <div class="search__background toggle-search"></div>
+        </div>
+        
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-137523414-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+        
+          gtag('config', 'UA-137523414-1');
+        </script>
+
+        <script type="text/javascript" src="{{ siteUrl }}assets/static/bundle.js{{ craft.config.devMode ? '?' ~ random() : '' }}"></script>
+    </body>
+</html>

@@ -1,0 +1,44 @@
+
+<footer class="footer over-markers">
+    
+    
+    {% if entry is not defined or entry.slug != "join" %}
+        <div class="grid">
+            {% if footer.footerIntro != '' %}
+            <div class="s-col-12 m-col-10 m-off-1">
+                <p>{{ footer.footerIntro }}</p>
+            </div>
+            {% endif %}
+            <div class="s-col-12">
+                {% for button in footer.footerButton %}
+                    <a class="button" href="{{ button.buttonLink }}">{{ button.buttonText }}</a>
+                    {% if button.buttonNote %}
+                        <small class="centered">{{ button.buttonNote }}</small>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="grid footer__newsletter">
+        <div class="s-col-12">
+            <!--<a class="button" href="http://eepurl.com/dCz8l1" target="_blank">Sign up to our newsletter</a>-->
+            <a id="signup-button" class="button">Sign up to our newsletter</a>
+        </div>
+    </div>
+
+
+    <div class="grid footer__smalls">
+        <div class="s-col-12 m-col-4 footer__links">
+            {% for link in footer.footerSmallLinks %}
+                <small class="footer__link"><a class="" href="{{ link.linkUrl }}" {% if link.externalLink %}target="_blank"{% endif %}>{{ link.linkText }}</a></small>
+            {% endfor %}
+
+        </div>
+        <div class="s-col-12 m-col-8 footer__copyright">
+            <small>{{ footer.footerCopyrightText }}</small>
+        </div>
+    </div>
+    {% include 'components/signup' %}
+</footer>
+

@@ -1,0 +1,71 @@
+{% set href = href ?? null %}
+{% set target = target ?? null %}
+{% set hero = hero ?? false %}
+{% set height = height ?? false %}
+
+{% if image is defined and is_asset( image ) %}
+    {% set image %}
+        <img class="cover rounded" srcset="{{ srcset( image ) }}"/>
+    {% endset %}
+{% endif %}
+
+{% set linkAttrs = href
+    ? attrs({
+        href: href,
+        target: target,
+        rel: target ? 'noopener noreferrer' : null
+    })
+    : ''
+%}
+
+{% set text %}
+    {% if categories is defined and categories | length %}
+        <div class="thumbnail__categories">
+            {% for category in categories %}
+                {% if category.url is defined %}
+                    <a class="category" href="{{ category. url }}">
+                        {{ category.title }}
+                    </a>
+                {% else %}
+                    <a class="category" {{ linkAttrs }}>
+                        {{ category.title }}
+                    </a>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
+    <h3 class="thumbnail__title">
+        {% if href %}
+            <a {{ linkAttrs }}>{{ title | raw }}</a>
+        {% else %}
+            {{ title | raw }}
+        {% endif %}
+    </h3>
+{% endset %}
+
+<div
+    class="{{ bem( 'thumbnail', { hero: hero }) }} lazy"
+    data-loaded-class="thumbnail--loaded"
+>
+    <div class="thumbnail__inner cover">
+        {% if href %}
+            <a class="thumbnail__image" {{ linkAttrs }}>
+                {{ image }}
+            </a>
+        {% else %}
+            <div class="thumbnail__image">
+                {{ image }}
+            </div>
+        {% endif %}
+        <div class="{{ bem( 'thumbnail__text', { hidden: hero } ) }}">
+            {{ text }}
+        </div>
+        {% if hero %}
+            <div class="cover thumbnail__sticky">
+                <div class="thumbnail__sticky-text">
+                    {{ text }}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>

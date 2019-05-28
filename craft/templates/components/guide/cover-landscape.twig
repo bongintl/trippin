@@ -1,0 +1,41 @@
+<div class="guide-cover-landscape">
+    <div class="grid grid--gutter" data-hide-map-labels>
+        <div class="s-col-6 xl-col-8 pad-bottom">
+            <div class="guide-cover-landscape__bounds map-cover-bounds"></div>
+            {% if image %}
+                <div class="guide-cover-landscape__image rounded">
+                    <img srcset="{{ srcset( image ) }}" alt="">
+                </div>
+            {% endif %}
+        </div>
+        <div class="s-col-6 xl-col-4 pad-bottom">
+            <div class="guide-cover-landscape__text">
+                <div class="guide-cover-landscape__title">
+                    {% if city %}
+                        <a class="category" href="{{ city.url }}">
+                            {{ city.title }}
+                        </a>
+                    {% endif %}
+                    <h1>{{ title }}</h1>
+                    {% if socials|length %}
+                        <div class="pad-top">
+                            {% for link in socials %}
+                                <small class="guide-cover-landscape__socials">
+                                    <a href="{{ link.url }}" target="_blank">{{ link.label }}</a><br>
+                                </small>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="guide-cover-landscape__bio pad-top over-markers">
+                    {{ bio }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="guide-cover-landscape__contents grid grid--gutter pad-bottom" data-show-map-labels>
+        <div class="guide-cover-landscape__legend s-col-6 xl-col-4 sticky-center">
+            {% include 'components/guide/legend' with { spots: spots } only %}
+        </div>
+    </div>
+</div>

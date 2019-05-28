@@ -1,0 +1,28 @@
+.nearby {
+    &--busy {
+        @keyframes busy {
+            from {
+                background: white;
+                color: blue;
+            }
+            to {
+                background: blue;
+                color: white;
+            }
+        }
+        animation: busy .75s infinite alternate;
+    }
+    &--error {
+        @keyframes error {
+            from {
+                background: red;
+                color: white;
+            }
+            to {
+                background: white;
+                color: black;
+            }
+        }
+        animation: error 1s 1;
+    }
+}

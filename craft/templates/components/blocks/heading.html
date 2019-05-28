@@ -1,0 +1,17 @@
+{% if block.heading is defined %}
+
+    {% if block.position == 'right' %}
+        {% set position = "m-off-4" %}
+    {% elseif block.position == 'middle' %}
+        {% set position = "m-off-2" %}
+    {% else %}
+        {% set position = "" %}
+    {% endif %}
+    
+    <div class="grid grid--gutter pad-bottom-l">
+        <div class="s-col-12 m-col-8 {{ position }}">
+            <h3>{{ block.heading }}</h3>
+        </div>
+    </div>
+
+{% endif %}

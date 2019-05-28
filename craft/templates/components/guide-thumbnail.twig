@@ -1,0 +1,116 @@
+{% set hero = hero ?? false %}
+
+{% set href = guide.membersOnly
+    ? guide.membersOnlyLink ?? '/page/join'
+    : guide.comingSoon ? null : guide.url
+%}
+
+{% set image %}
+    {% if guide.coverImage | length %}
+        {% set class = guide.comingSoon
+            ? 'filter-light'
+            : guide.membersOnly
+                ? 'filter-dark'
+                : ''
+        %}
+        <img class="cover rounded {{ class }}" {{ lazy( guide.coverImage[ 0 ], 'guide' ) }}/>
+    {% endif %}
+    {% include 'components/dots' with { guide: guide, large: hero } only %}
+{% endset %}
+
+{% set categories = [] %}
+{% if guide.comingSoon %}
+    {% set categories = [{ title: 'Coming Soon' }] %}
+{% elseif guide.membersOnly %}
+    {% set categories = [{ title: 'Members Only' }] %}
+{% elseif guide.city | length %}
+    {% for city in guide.city %}
+        {% set categories = categories | merge([{ title: city.title, url: city.url }]) %}
+    {% endfor %}
+{% endif %}
+
+{% set title = guide.comingSoon or guide.membersOnly
+    ? "<span class=\"stroke\">#{ guide.title }</span>"
+    : guide.title
+%}
+
+{% include 'components/thumbnail' with {
+    href: href,
+    image: image,
+    title: title,
+    categories: categories,
+    hero: hero
+} only %}
+
+{#<div#}
+{#    class="{{ bem( 'guide-thumbnail', {#}
+{#        hero: false and hero,#}
+{#        secret: guide.comingSoon or guide.membersOnly#}
+{#    }) }} lazy"#}
+{#    data-loaded-class="guide-thumbnail--loaded"#}
+{#>#}
+    
+{#    <div class="guide-thumbnail__inner cover">#}
+        
+{#        {% set imageClass = bem( 'guide-thumbnail__image', {#}
+{#            light: guide.comingSoon,#}
+{#            dark: ( not guide.comingSoon ) and guide.membersOnly,#}
+{#        } ) %}#}
+        
+{#        {% set image %}#}
+{#            {% if guide.coverImage | length %}#}
+{#                <img class="cover rounded" data-srcset="{{ srcset( guide.coverImage[ 0 ], 'guide' ) }}"/>#}
+{#            {% endif %}#}
+{#            {% cache globally using key "dots:#{ guide.id }:#{ guide.dateUpdated | date( 'U' ) }" %}#}
+{#                {% include 'components/dots' with { locations: guide.spots | pluck('location'), color: color } %}#}
+{#            {% endcache %}#}
+{#        {% endset %}#}
+        
+{#        {% if guide.comingSoon or guide.membersOnly %}#}
+{#            <div class="{{ imageClass }}">{{ image }}</div>#}
+{#        {% else %}#}
+{#            <a class="{{ imageClass }}" href="{{ guide.url }}">{{ image }}</a>#}
+{#        {% endif %}#}
+
+{#        {% set text %}#}
+            
+{#            <div class="guide-thumbnail__category">#}
+{#                {% if guide.comingSoon %}#}
+{#                    <a class="category">#}
+{#                        Coming Soon#}
+{#                    </a>#}
+{#                {% elseif guide.membersOnly %}#}
+{#                    <a class="category">#}
+{#                        Members Only#}
+{#                    </a>#}
+{#                {% elseif guide.city | length %}#}
+{#                    {% for city in guide.city %}#}
+{#                        <a class="category" href="{{ city.url }}">#}
+{#                            {{ city.title }}#}
+{#                        </a>#}
+{#                    {% endfor %}#}
+{#                {% endif %}#}
+{#            </div>#}
+            
+{#            <h3 class="{{ bem( 'guide-thumbnail__title', { stroke: guide.comingSoon }) }}">#}
+{#                {% if guide.comingSoon or guide.membersOnly %}#}
+{#                    {{ guide.title }}#}
+{#                {% else %}#}
+{#                    <a href="{{ guide.url }}">{{ guide.title }}</a>#}
+{#                {% endif %}#}
+{#            </h3>#}
+            
+{#        {% endset %}#}
+        
+{#        {{ text }}#}
+
+{#        {% if hero %}#}
+{#            <div class="guide-thumbnail__sticky">#}
+{#                <div class="guide-thumbnail__sticky-text">#}
+{#                    {{ text }}#}
+{#                </div>#}
+{#            </div>#}
+{#        {% endif %}#}
+        
+{#    </div>#}
+{#</div>#}

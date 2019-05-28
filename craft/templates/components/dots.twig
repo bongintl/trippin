@@ -1,0 +1,21 @@
+{% import 'macros/colors' as colors %}
+{% set large = large ?? false %}
+{% set color = guide.city | length
+    ? guide.city[ 0 ].continent | length
+        ? guide.city[ 0 ].continent[ 0 ].color ?: '#FFFFFF'
+        : '#FFFFFF'
+    : '#FFFFFF'
+%}
+<div class="{{ bem( 'dots', { large: large } ) }}" style="--dot-gradient: {{ colors.dotGradient( color ) }}">
+    {% if guide.spots | length == 0 %}
+        {% for i in range( 0, 8 ) %}
+            <div class="dots__dot" data-lat="{{ random() }}" data-lng="{{ random() }}"></div>
+        {% endfor %}
+    {% else %}
+        {% cache globally using key "dots:#{ guide.id }:#{ guide.dateUpdated | date( 'U' ) }" %}
+            {% for spot in guide.spots %}
+                <div class="dots__dot" data-lat="{{ spot.location.lat }}" data-lng="{{ spot.location.lng }}"></div>
+            {% endfor %}
+        {% endcache %}
+    {% endif %}
+</div>

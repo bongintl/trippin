@@ -1,0 +1,49 @@
+:root {
+    --gutter: 8px;
+    --small-size: 11px;
+    --h1-size: 48px;
+    --h2-size: 40px;
+    --h3-size: 22px;
+    --h4-size: 18px;
+    --h5-size: 20px;
+    --p-size: 20px;
+    --button-size: 24px;
+    --heading-line-height: 1;
+    --corner-radius: 8px;
+    --thumbnail-ratio: 2;
+    --feature-ratio: 0.5;
+    --dot-size: 25px;
+    // --dot-size-large: calc( var( --dot-size ) * 1.5 );
+    --dot-number-size: 12px;
+    @include medium {
+        --dot-size: 25px;
+        // --dot-size-large: 50px;
+        --dot-number-size: 13px;
+        --corner-radius: 12px;
+        --gutter: 16px;
+        --small-size: 11px;
+        --h1-size: 80px;
+        --h2-size: 50px;
+        --h3-size: 30px;
+        --h4-size: 20px;
+        --h5-size: 24px;
+        --button-size: 28px;
+    }
+    @include large {
+        --small-size: 12px;
+        --h1-size: 100px;
+        --h2-size: 60px;
+        --h3-size: 30px;
+        --h4-size: 24px;
+        --h5-size: 30px;
+        --button-size: 30px;
+        --dot-size: 30px;
+        // --dot-size-large: 40px;
+    }
+    @include xlarge {
+        --dot-size: 40px;
+    }
+    @include xxlarge {
+        --dot-size: 50px;
+    }
+}

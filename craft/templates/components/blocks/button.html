@@ -1,0 +1,7 @@
+{% if block.buttonLink is defined and block.buttonText is defined %}
+<div class="grid grid--gutter pad-bottom">
+    <div class="s-col-12">
+        <a class="button button--black" href="{{ block.buttonLink }}">{{ block.buttonText }}</a>
+    </div>
+</div>
+{% endif %}

@@ -1,0 +1,84 @@
+<div id="{{ id }}" class="spot grid grid--gutter pad-bottom lazy" data-loaded-class="spot--loaded">
+    {% if spot.images | length %}
+        <div class="spot__images">
+            <div class="s-col-12 spot__slider-container">
+                <div class="spot__slider rounded">
+                    <div class="spot__slider-scroll">
+                        {% for img in spot.images %}
+                            <img
+                                class="rounded"
+                                data-ratio="{{ img.height / img.width }}"
+                                {{ lazy( img ) }} 
+                            >
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="s-col-10 s-off-2 m-col-6 m-off-6 xl-col-4 xl-off-8 spot__thumbnail-container">
+                {% set img = spot.images[ 0 ] %}
+                {% set ratio = img.height / img.width %}
+                <div
+                    class="spot__thumbnail"
+                    style="padding-bottom: {{ ratio * 100 }}%">
+                    <img class="cover" {{ lazy( img ) }}>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    
+    {% set placeData = craft.mapUtils.placeData( spot.location.address ) %}
+    
+    <div class="s-col-10 m-col-6 xl-col-4">
+        <div class="spot__text">
+            <div class="grid grid--gutter">
+                <div class="s-col-12 pad-top  pad-bottom">
+                    <h3>{{ spot.spotName }}</h3>
+                </div>
+                <div class="spot__tip s-col-12">
+                    {{ spot.tip }}
+                </div>
+                {% if placeData %}
+                    {% set placeData = placeData.result %}
+                    <div class="spot__address s-col-12 l-col-6 pad-top">
+                        <div class="pad-bottom">
+                            <a href="https://maps.google.com/?q={{ spot.location.address | url_encode }}" target="_blank" noopener noreferrer>
+                                {{ spot.location.address | split( ', ' ) | join('<br/>') | raw }}
+                            </a>
+                        </div>
+                    </div>
+                    <div class="spot__info s-col-12 l-col-6 pad-top pad-bottom">
+                        
+                        {% if placeData.website is defined %}
+                            <div class="pad-bottom">
+                                <a class="spot__website" href="{{ placeData.website }}" target="_blank" noopener noreferrer>
+                                        {{ placeData.website | replace( "/https?:\\/\\/(www\.)?(.*)\\/.*/", "$2" ) }}
+                                </a>
+                            </div>
+                        {% endif %}
+                        
+                        {% if placeData.international_phone_number is defined %}
+                            <div class="pad-bottom">
+                                <a href="tel:{{ placeData.international_phone_number }}">
+                                    {{ placeData.international_phone_number }}
+                                </a>
+                            </div>
+                        {% endif %}
+                        
+                        {% if placeData.opening_hours is defined and placeData.opening_hours.open_now is defined %}
+                            <div class="pad-bottom">
+                                <small>{{ placeData.opening_hours.open_now ? 'Open now' : 'Closed now' }}</small>
+                            </div>
+                        {% endif %}
+                        
+                        {% if placeData.price_level is defined %}
+                            <div class="pad-bottom">
+                                <small>{% for i in range(1, placeData.price_level) %}${% endfor %}
+                                </small>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

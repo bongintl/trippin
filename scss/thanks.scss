@@ -1,0 +1,7 @@
+.thanks {
+    min-height: 30vh;
+
+    @include medium {
+        min-height: 50vh;
+    }
+}

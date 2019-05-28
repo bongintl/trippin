@@ -1,0 +1,103 @@
+:root {
+    --nav-height: 42px;
+}
+
+.nav-compact {
+    @include show-full-nav {
+        display: none;
+    }
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    height: var( --nav-height );
+    z-index: 10000;
+    display: flex;
+    justify-content: flex-end;
+    background: white;
+    // padding: var( --gutter ) var( --gutter ) 0 var( --gutter );
+
+    &__items {
+        display: flex;
+        justify-content: flex-end;
+        @include medium {
+            padding-right: var(--gutter);
+        }
+    }
+    &__item {
+        display: block;
+        flex-grow: 0;
+        padding: var( --gutter ) var( --gutter ) var( --gutter ) 0;
+        @include medium {
+            padding: 0 calc(var(--gutter) / 2);
+        }
+        // &:not(:first-child ) {
+        //     padding-left: var( --gutter );
+        // }
+        img {
+            width: calc( var( --nav-height ) - var( --gutter ) );
+            height: 100%;
+            // width: auto;
+        }
+    }
+    &__menu {
+        position: fixed;
+        transform: translateX(100%);
+        right: 0;
+        height: 100%;
+        width: var( --nav-height );
+        background: white;
+        transition: transform .5s;
+        @include medium {
+            width: calc( var( --nav-height ) + var( --gutter ));
+        }
+        &--open {
+            transform: translateY(0);
+        }
+        &:before {
+            content: '';
+            position: fixed;
+            top: var( --nav-height );
+            left: 0;
+            bottom: 0;
+            right: var( --nav-height );
+            background: rgba( 0, 0, 0, .1 );
+            display: block;
+            @include medium {
+                right: calc( var( --nav-height ) + var( --gutter ));
+            }
+        }
+        &:after {
+            content: '';
+            display: block;
+            position: absolute;
+            top: var( --nav-height );
+            left: calc( var( --corner-radius ) * -1 );
+            width: var( --corner-radius );
+            height: var( --corner-radius );
+            background-image: url(/assets/static/inside-corner.svg);
+            background-size: 100% 100%;
+        }
+        
+    }
+    &__menu-items {
+        display: flex;
+        transform:  rotate( 90deg ) translateY( -100% ) ;
+        transform-origin: 0 0;
+    }
+    &__menu-item {
+        display: block;
+        white-space: nowrap;
+        padding: var( --gutter );
+        line-height: 1;
+        font-size: calc( var( --nav-height ) - var( --gutter ) * 2 );
+        @include medium {
+            padding: calc(var( --gutter ) / 2);
+            font-size: 24px;
+        }
+        img {
+            height: 100%;
+            width: auto;
+        }
+    }
+}

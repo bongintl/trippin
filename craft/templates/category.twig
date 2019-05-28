@@ -1,0 +1,28 @@
+{% extends "_layout" %}
+
+
+{% block content %}
+	
+    
+{% set catEntries = craft.entries.relatedTo(category).all() %}
+
+
+<div class="grid grid--gutter pad-bottom">
+	<div class="s-col-12 m-col-6">
+		<h3><a href="/features">Features</a>:  {{ category.title }}</h3>
+	</div>
+</div>
+
+<div class="grid grid--gutter">
+
+	{% for entry in catEntries %}
+		<div class="s-col-6">
+    		{% include 'components/features-thumbnail' with { feature: entry } only %}
+    	</div>	
+	{% endfor %}
+
+
+</div>
+
+ 
+{% endblock %}

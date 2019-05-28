@@ -1,0 +1,50 @@
+<div class="contact grid grid--gutter">
+    
+    {% macro errorList(errors) %}
+        {% if errors %}
+            <ul class="errors">
+                {% for error in errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endmacro %}
+    
+    {% from _self import errorList %}
+    
+    <form method="post" action="" accept-charset="UTF-8" class="pad-top s-col-12 m-col-8 m-off-4">
+        {{ getCsrfInput() }}
+        <input type="hidden" name="action" value="contactForm/sendMessage">
+        <input type="hidden" name="redirect" value="thanks">
+    
+        <div class="pad-bottom">
+            <label for="fromName">Your Name</label>
+            <input id="fromName" type="text" name="fromName" value="{% if message is defined %}{{ message.fromName }}{% endif %}">
+            {{ message is defined and message ? errorList(message.getErrors('fromName')) }}
+        </div>
+        
+        <div class="pad-bottom">
+            <label for="fromEmail">Your Email</label>
+            <input id="fromEmail" type="email" name="fromEmail" value="{% if message is defined %}{{ message.fromEmail }}{% endif %}">
+            {{ message is defined and message ? errorList(message.getErrors('fromEmail')) }}
+        </div>
+        
+        <div class="pad-bottom">
+            <input id="subject" type="hidden" name="subject" value="Contact Form">
+        </div>
+        
+        <div class="pad-bottom">
+            <label for="message">Your Message</label>
+            <textarea rows="4" cols="40" id="message" name="message">{% if message is defined %}{{ message.message }}{% endif %}</textarea>
+            {{ message is defined and message ? errorList(message.getErrors('message')) }}
+        </div>
+        
+        <div class="pad-bottom">
+            <input type="submit" value="Send" class="button button--black button--small">
+        </div>
+
+    </form>
+    
+        
+
+</div>

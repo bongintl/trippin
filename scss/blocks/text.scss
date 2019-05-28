@@ -1,0 +1,12 @@
+.text-block {
+    font-size: var(--p-size);
+    margin-bottom: -1em;
+
+    p {
+        margin-bottom: 1em;
+    }
+    
+    a {
+        @extend .link;
+    }
+}

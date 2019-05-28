@@ -1,0 +1,96 @@
+{% extends "_layout" %}
+
+{% block content %}
+    
+    {% do eagerLoadElements( entry, [
+        'hero',
+        'featureType',
+        'blocks',
+        'blocks.image:file',
+        'blocks.twoImages:files',
+        'blocks.slider:files',
+        'blocks.guides:guides',
+        craft.trippin.guide_thumbnail_elements | prefix( 'blocks.guides:guides.' )
+    ] | flatten ) %}
+    
+    {% if entry.position == 'right' %}
+        {% set position = "m-off-4" %}
+    {% elseif entry.position == 'middle' %}
+        {% set position = "m-off-2" %}
+    {% else %}
+        {% set position = "" %}
+    {% endif %}
+    
+    {% set handle = entry.getSection().handle %}
+
+    <div class="grid grid--gutter gap-bottom-l">
+        <div class="s-col-12">
+            {% include '/components/hero' with { img: entry.hero[ 0 ] } %}
+        </div>    
+
+        {% if entry.showTitle %}
+            <div class="s-col-12 m-col-8 {{ position }} pad-top">
+                
+                {% for cat in entry.featureType %}
+                    <small class="features-thumbnail__type">
+                        <a class="category" href="{{ cat.url }}">{{ cat }}</a>
+                        {% if entry.featureAuthor|length %}<span class="features-thumbnail__author">by {{ entry.featureAuthor[0].title }}</span>{% endif %}
+                    </small>
+                {% endfor %}
+                
+
+                <h2 class="pad-top pad-bottom">{{ entry.title }}</h2>
+               
+                {% if entry.socialLink is defined %}
+                <small class="features-thumbnail__link">
+                    <a href="{{ entry.socialLink }}">{{ entry.socialTitle }}</a>
+                </small>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+    	
+	
+    {% include '/components/blocks' with { blocks: entry.blocks } only %}
+    
+    {% if handle == 'info' %}
+    
+        {% include '/components/contact' %}
+    
+    {% else %}
+            
+    
+
+
+            {% set cat = entry.featureType[0] %}
+            {% set relatedEntries = craft.entries.section('features').relatedTo(cat).limit(2).id('not ' ~ entry.id) %}
+            
+            {% if relatedEntries|length %}
+            
+                <div class="grid grid--gutter gap-top-l">
+                	<div class="s-col-12 m-col-6">
+                		<h3>Related:</h3>
+                	</div>
+                </div> 
+        
+                <div class="grid grid--gutter gap-top">
+                    {% for entry in relatedEntries %}
+           		        <div class="s-col-6 m-col-6">
+                    		{% include 'components/features-thumbnail' with { feature: entry, class: 'small' } only %}
+                    	</div>
+                    {% endfor %}
+                </div> 
+
+            {% endif%}
+
+            <div class="grid grid--gutter gap-bottom">
+                <div class="s-col-12">
+                    <a class="button button--black"  href="/features">View all features</a>
+                </div>     
+            </div>
+        
+
+    {% endif %}
+    
+    
+{% endblock %}

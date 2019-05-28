@@ -1,0 +1,25 @@
+{% import "_includes/forms" as forms %}
+
+{{ forms.textField({
+	label: "Google Maps API Key"|t,
+	instructions: '<a href="https://developers.google.com/maps/documentation/javascript/get-api-key#get-an-api-key" target="_blank">Get an API key.</a>',
+	id: 'browserApiKey',
+	name: 'browserApiKey',
+	value: configFileSettings.browserApiKey ?: settings.browserApiKey,
+	type: 'text',
+	required: true,
+	readonly: configFileSettings.browserApiKey ? true : false,
+	warning: configFileSettings.browserApiKey ? "This is being overridden by the browserApiKey config setting." : ''
+}) }}
+
+{{ forms.textField({
+	label: "Alternate Server API Key"|t,
+	instructions: 'If you are using the above API key publically and need to add restrictions to it, you will need to pass an unrestricted API key here for exclusive use by the server. <a href="https://developers.google.com/maps/documentation/javascript/get-api-key#get-an-api-key" target="_blank">Get an API key.</a>',
+	id: 'serverApiKey',
+	name: 'serverApiKey',
+	value: configFileSettings.serverApiKey ?: settings.serverApiKey,
+	type: 'text',
+	required: false,
+	readonly: configFileSettings.serverApiKey ? true : false,
+	warning: configFileSettings.serverApiKey ? "This is being overridden by the browserApiKey config setting." : ''
+}) }}

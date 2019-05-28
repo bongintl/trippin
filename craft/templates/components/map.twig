@@ -1,0 +1,17 @@
+<div class="map" data-api-key="{{ craft.simpleMap.apiKey }}">
+    <div class="map__map"></div>
+    <div class="map__controls">
+        <div class="map__button map__button--zoom-in">+</div>
+        <div class="map__button map__button--zoom-out">-</div>
+    </div>
+</div>
+<div class="map-markers">
+    {% for spot in spots %}
+        <a class="marker" href="#{{ loop.index }}" data-lat="{{ spot.location.lat }}" data-lng="{{ spot.location.lng }}">
+            <div class="marker__dot">{{ loop.index }}</div>
+            <small class="marker__label">{{ spot.spotName }}</small>
+        </a>
+    {% endfor %}
+</div>
+<div class="map-bounds map-bounds--cover-landscape"></div>
+<div class="map-bounds map-bounds--spot"></div>

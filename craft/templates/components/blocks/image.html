@@ -1,0 +1,33 @@
+{% if block.file[0]|length %}
+
+    {% set file = block.file[0] %}
+    {% set height = block.height %}
+    
+    
+    {% if height == 'halfScreen' %}
+    
+        {% set ratio = '50vh' %}
+    
+    {% elseif height == 'screen' %}
+    
+        {% set ratio = '96vh' %}
+    
+    {% else %}
+    
+        {% set height = file.height %}
+        {% set width = file.width %}
+        {% set ratio = (height / width) * 100 ~ 'vw' %}
+    
+    {% endif %}
+    
+    <div class="grid grid--gutter pad-bottom-l">
+        <div class="s-col-12">
+            <div class="image-block" style="height: {{ ratio }}">
+                <img class="lazy cover rounded" {{ lazy( file ) }} alt="">
+            </div>
+            {% if block.caption != '' %}<small class="image-block__caption">{{ block.caption }}</small>{% endif %}
+        </div>
+    </div>
+
+
+{% endif %}

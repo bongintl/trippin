@@ -1,0 +1,49 @@
+{% if block.files | length %}
+    
+    {#{% set maxHeight = 0 %}#}
+    {#{% set maxWidth = 0 %}#}
+    {#{% set ratio = 0 %}#}
+    
+    {#{% for file in block.files %}#}
+    
+
+    
+    {#    {% set height = file.height %}#}
+    {#    {% set width = file.width %}#}
+        
+    {#    {% if height > maxHeight %}#}
+    {#        {% set maxHeight = height %}#}
+    {#    {% endif %}#}
+    {#    {% if width > maxWidth %}#}
+    {#        {% set maxWidth = width %}#}
+    {#    {% endif %}#}
+    {#    {% set ratio = maxHeight / maxWidth %}#}
+        
+    {#{% endfor %}#}
+        
+    <div class="grid grid--gutter">
+        {% for file in block.files %}
+            <div class="s-col-12 m-col-6 pad-bottom-l">
+    
+                <div class="twoimages-block twoimages-block--landscape">
+                    <div class="twoimages-block__wrap lazy" data-loaded-class="twoimages-block--loaded">
+                        <img class="cover rounded" {{ lazy( file ) }} alt="">
+                    </div>
+                    {% if block.captionOne or block.captionTwo != '' %}<small class="twoimages-block__caption">{% if loop.first %}{{ block.captionOne }}{% else %}{{ block.captionTwo }}{% endif %}</small>{% endif %}
+                </div>
+    
+    
+                {% set ratio = file.height / file.width %}
+
+                <div class="twoimages-block twoimages-block--portrait">
+                    <div class="twoimages-block__wrap lazy" data-loaded-class="twoimages-block--loaded" style="height: {{ ratio * 100 }}vw">
+                        <img class="cover rounded" {{ lazy( file ) }} alt="">
+                    </div>
+                    {% if block.captionOne or block.captionTwo != '' %}<small class="twoimages-block__caption">{% if loop.first %}{{ block.captionOne }}{% else %}{{ block.captionTwo }}{% endif %}</small>{% endif %}
+                </div>
+    
+            </div>
+        {% endfor %}
+    </div>
+
+{% endif %}

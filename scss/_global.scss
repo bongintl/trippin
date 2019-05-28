@@ -1,0 +1,122 @@
+* {
+    position: relative;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    // font: inherit;
+    color: inherit;
+    text-decoration: inherit;
+    -webkit-font-smoothing: antialiased;
+    list-style: none;
+}
+
+html {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+}
+
+body {
+    margin-left: var( --nav-width );
+    margin-top: var( --nav-height );
+    
+    &.noscroll {
+        overflow: hidden;
+    }
+}
+
+img, video {
+    width: 100%;
+    display: block;
+}
+
+// .lazy img[data-srcset],
+// img.lazy[data-srcset] {
+//     filter: blur( 10px );
+//     &.lazy-loaded {
+//         filter: none;
+//     }
+// }
+
+.pad-top {
+    padding-top: var( --gutter );
+}
+
+.pad-bottom {
+    padding-bottom: var( --gutter );
+}
+
+.pad-bottom-l {
+    padding-bottom: calc(var( --gutter ) * 4);
+}
+
+.gap-top {
+    margin-top: var( --gutter );
+}
+
+.gap-bottom {
+    margin-bottom: var( --gutter );
+}
+
+.gap-bottom-l {
+    padding-bottom: calc(var( --gutter ) * 4);
+}
+
+.centered {
+    text-align: center;
+}
+
+.right-align {
+    text-align: right;
+}
+
+.cover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.rounded {
+    border-radius: var( --corner-radius );
+    overflow: hidden;
+}
+
+.bg-white {
+    background: white;
+}
+
+
+.safari-border-fix {
+    -webkit-transform: translateZ(0);
+    -webkit-mask-image: -webkit-radial-gradient(circle, white 100%, black 100%);
+}
+
+@mixin icon-x ( $color: black, $width: 2px ) {
+    &:before, &:after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 141%;
+        height: $width;
+        background: $color;
+    }
+    &:before {
+        transform: translate(-50%,-50%) rotate(45deg);
+    }
+    &:after {
+        transform: translate(-50%,-50%) rotate(-45deg);
+    }
+}
+
+.filter-light {
+    -webkit-filter: grayscale(100%) opacity(.6);
+}
+
+.filter-dark {
+    -webkit-filter: grayscale(100%) brightness(.6);
+}

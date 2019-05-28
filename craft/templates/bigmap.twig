@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Big Map</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        .controls {
+            position: fixed;
+            opacity: 0;
+            z-index: 300;
+        }
+        .controls:hover {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="controls">
+        <input class="width" type="number" value="4000">
+        <input class="height" type="number" value="4000">
+        <input class="place" type="text" placeholder="Where?">
+        <button class="search">Search</button>
+        <button class="big">Big</button>
+        <button class="small">Small</button>
+    </div>
+    <div class='map'></div>
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ craft.simpleMap.apiKey }}"></script>
+    <script>
+        var $ = s => document.querySelector( s );
+        var el = $('.map');
+        var map = new google.maps.Map( el, {
+            zoom: 1,
+            center: new google.maps.LatLng( 0, 0 ),
+            mapTypeId: 'satellite',
+            mapTypeControl: false,
+            zoomControl: false,
+            streetViewControl: false,
+            rotateControl: false,
+            fullscreenControl: false,
+            scrollwheel: false,
+        });
+        var getOutputSize = () => [
+            Number( $('.width').value ),
+            Number( $('.height').value )
+        ]
+        var state = {
+            currSize: [ 0, 0 ],
+            outputSize: getOutputSize()
+        }
+        var setSize = size => {
+            state.currSize = size;
+            el.style.width = size[ 0 ] + 'px';
+            el.style.height = size[ 1 ] + 'px';
+        }
+        var small = ( zoomOut = true ) => {
+            var scale = 1;
+            while ( size[ 0 ] * scale > window.innerWidth || size[ 1 ] * scale > window.innerHeight ) {
+                scale *= .5;
+            }
+            setSize( size );
+            if ( zoomOut ) map.setZoom( zoom );
+        }
+        small( false )
+        var big = () => {
+            var size = [ ...state.currSize ];
+            var zoom = map.getZoom();
+        }
+        // 
+        // var getOutputSize = () => [
+        //     Number( $('.width').value ),
+        //     Number( $('.height').value )
+        // ]
+        // var small = ( zoom = true ) {
+        //     var size = [ ...state.outputSize ];
+        //     while ( size[ 0 ] > window.innerWidth || size[ 1 ] > window.innerHeight ) {
+        //         size[ 0 ] /= 2;
+        //         size[ 1 ] /= 2;
+        //     }
+        //     return size;
+        // }
+        var big = () => {
+            var size = getOutputSize();
+            
+        }
+        
+        // var setSize = size => {
+            
+        // }
+        // var big = () => {
+            
+        // }
+        
+        // var getSize = () => [
+        //     Number( $('.width').value ),
+        //     Number( $('.height').value )
+        // ]
+        // var fit = () => {
+        //     var size = getSize();
+        //     while ( size[ 0 ] > window.innerWidth || size[ 1 ] > window.innerHeight ) {
+        //         size[ 0 ] /= 2;
+        //         size[ 1 ] /= 2;
+        //     }
+        //     return size;
+        // }
+        // var style = size => {
+        //     el.style.width = size[ 0 ] + 'px';
+        //     el.style.height = size[ 1 ] + 'px';
+        // }
+        // var small = () => {
+        //     style( fit() );
+        // }
+        // style( fit() );
+    </script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+{% extends "_layout" %}
+
+{% block content %}
+	
+    {% set featuredEntries = entry.selectedEntries %}
+    {% set featuredIds = entry.selectedEntries.ids() %}
+    
+    
+    
+    {% set notIDs = ['and'] %}
+    {% for id in entry.selectedEntries.ids() %}
+    	{% set notIDs = notIDs | merge([ "not #{ id }" ]) %}
+    {% endfor %}
+
+	{% set notIDs = notIDs|join(', ') %}
+	
+
+    {% set filteredEntries = craft.entries({
+    	section: 'features',
+    	with: craft.trippin.feature_thumbnail_elements
+    }).id(notIDs) %}
+    
+
+    
+    
+    {% set totalEntries = filteredEntries|length %}
+	
+	
+	<div class="grid grid--gutter">
+	
+	
+		{% set restEntries = filteredEntries %}
+		{% paginate restEntries.limit(12).offset(8) as pageInfo, pageEntries %}
+		
+		{% if not pageInfo.prevUrl %}
+		
+			{% for entry in filteredEntries|slice(0,4) %}
+				<div class="s-col-6 m-col-3">
+		    		{% include 'components/features-thumbnail' with { feature: entry } only %}
+		    	</div>	
+			{% endfor %}
+
+		
+			{% for entry in featuredEntries.limit(1) %}
+				<div class="s-col-12">
+		    		{% include 'components/features-thumbnail' with { feature: entry, class: 'large' } only %}
+		    	</div>
+			{% endfor %}
+		
+			{% for entry in filteredEntries|slice(4,4) %}
+				<div class="s-col-6 m-col-3">
+		    		{% include 'components/features-thumbnail' with { feature: entry } only %}
+		    	</div>	
+			{% endfor %}
+			
+			{% for entry in featuredEntries.limit(1).offset(1) %}
+				<div class="s-col-12">
+		    		{% include 'components/features-thumbnail' with { feature: entry, class: 'large' } only %}
+		    	</div>
+			{% endfor %}
+			
+		{% endif %}
+		
+
+		{% for entry in pageEntries %}
+			<div class="s-col-6 m-col-3">
+	    		{% include 'components/features-thumbnail' with { feature: entry } only %}
+	    	</div>	
+		{% endfor %}
+
+
+
+		
+
+
+
+
+ 
+	
+	</div>
+	
+	<div class="grid grid--gutter pad-bottom">
+		{% if pageInfo.prevUrl %}
+			<div class="s-col-12 m-col-6">
+				<a href="{{ pageInfo.prevUrl }}" class="button button--black">Previous Page</a>
+			</div>
+		{% endif %}
+		{% if pageInfo.nextUrl %}
+			<div class="s-col-12 m-col-6{% if not pageInfo.prevUrl %} m-off-6{% endif %}">
+				<a href="{{ pageInfo.nextUrl }}" class="button button--black">Next Page</a>
+			</div>
+		{% endif %}
+	</div>
+
+	
+	
+
+
+{% endblock %}

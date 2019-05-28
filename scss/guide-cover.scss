@@ -1,0 +1,62 @@
+.guide-cover {
+    &__image-mobile {
+        z-index: 100;
+        img {
+            border-radius: var( --corner-radius );
+            @extend .safari-border-fix;    
+        }
+        @include medium {
+            // display: none;
+        }
+    }
+    &__image-desktop {
+        z-index: 100;
+        @include medium {
+            // height: 100vh;
+            padding-top: var( --gutter );
+            padding-bottom: var( --gutter );
+            // position: sticky;
+            // top: 0;
+        }
+        img {
+            border-radius: var( --corner-radius );
+            @extend .safari-border-fix;    
+            object-fit: cover;
+            object-position: center top;
+            @include medium {
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
+    &__title {
+        height: calc( ( 100vh - var( --nav-height ) ) * 2 );
+        @include medium {
+            height: 100vh;
+            padding-top: var( --gutter );
+            padding-bottom: var( --gutter );
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+    }
+    &__legend {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        @include medium {
+            display: none;
+        }
+    }
+    &__legend-sticky {
+        position: sticky;
+        top: var( --nav-height );
+        height: calc( 100vh - var( --nav-height ) );
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding-bottom: var( --gutter );
+    }
+}

@@ -1,0 +1,68 @@
+{% extends '_layout' %}
+{% block content %}
+
+
+    {% do eagerLoadElements( entry, [
+        'heroFeatured',
+        craft.trippin.guide_thumbnail_elements | prefix( 'heroFeatured.entry:entry.'),
+        craft.trippin.city_thumbnail_elements | prefix( 'heroFeatured.entry:entry.'),
+        craft.trippin.feature_thumbnail_elements | prefix( 'heroFeatured.entry:entry.'),
+        'heroFeatured.externalLink:image',
+        'featured',
+        craft.trippin.guide_thumbnail_elements | prefix('featured.'),
+        craft.trippin.city_thumbnail_elements | prefix('featured.'),
+        'selectedFeatures',
+        craft.trippin.feature_thumbnail_elements | prefix( 'selectedFeatures.' )
+    ] | flatten ) %}
+    <div class="featured grid grid--gutter masonry">
+        <div class="masonry__sizer s-col-6 m-col-4 xl-col-3"></div>
+        <div class="masonry__item s-col-12 m-col-8 xl-col-6 pad-bottom">
+            {% for block in entry.heroFeatured %}
+                {% include 'components/hero-featured' with { block: block } only %}
+            {% endfor %}
+        </div>
+        {% set featured = entry.featured | length < 8
+            ? entry.featured | merge( craft.entries({
+                section: 'guides',
+                limit: 8 - entry.featured | length,
+                with: craft.trippin.guide_thumbnail_elements
+            }))
+            : entry.featured
+        %}
+        {% for entry in featured %}
+            <div class="masonry__item s-col-6 m-col-4 xl-col-3 pad-bottom">
+                {% switch entry.type %}
+                    {% case 'guide' %}
+                        {% include 'components/guide-thumbnail' with { guide: entry } only %}
+                    {% case 'city' %}
+                        {% include 'components/city-thumbnail' with { city: entry } only %}
+                {% endswitch %}
+            </div>
+        {% endfor %}
+    </div>
+    <div class="grid grid--gutter pad-top">
+        <div class="s-col-12">
+            <a class="button button--black" href="/guides">View all guides</a>
+        </div>
+    </div>
+    <div class="grid grid--gutter pad-top">
+        {% if entry.selectedFeatures | length %}
+        	{% for entry in entry.selectedFeatures %}
+        		<div class="s-col-6 {% if (loop.index == 1) or (loop.index == 2) %}m-col-6{% else %}m-col-3{% endif %}">
+            		{% include 'components/features-thumbnail' with { feature: entry, class: 'small' } only %}
+            	</div>
+        	{% endfor %}
+        {% else %}
+        	{% for entry in craft.entries.section('features').limit(6) %}
+        		<div class="s-col-6 {% if (loop.index == 1) or (loop.index == 2) %}m-col-6{% else %}m-col-3{% endif %}">
+            		{% include 'components/features-thumbnail' with { feature: entry, class: 'small' } only %}
+            	</div>
+        	{% endfor %}
+    	{% endif %}
+    </div>
+    <div class="grid grid--gutter pad-top pad-bottom">
+        <div class="s-col-12">
+            <a class="button button--black"  href="/features">View all features</a>
+        </div>
+    </div>
+{% endblock %}

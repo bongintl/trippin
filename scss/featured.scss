@@ -1,0 +1,7 @@
+.featured {
+    // change padding to margin for masonry to measure correctly
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: calc( var( --gutter ) / 2 );
+    margin-right: calc( var( --gutter ) / 2 );
+}

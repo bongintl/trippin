@@ -1,0 +1,38 @@
+<div class="grid grid--gutter">
+    <div class="s-col-12 guide-cover-portrait">
+        <div class="guide-cover-portrait__cover map-bounds-cover-portrait" data-hide-map-labels>
+            <div class="guide-cover-portrait__image rounded">
+                {% if image %}
+                    <img class="cover" srcset="{{ srcset( image ) }}" alt="">
+                {% endif %}
+            </div>
+            <div class="guide-cover-portrait__title pad-top pad-bottom" data-hide-map-labels>
+                {% if city %}
+                    <a class="category" href="{{ city.url }}">{{ city.title }}</a>
+                {% endif %}
+                <h1>{{ title }}</h1>
+                {% if socials|length %}
+                    <div class="pad-top">
+                        {% for link in socials %}
+                            <small class="guide-cover-portrait__socials">
+                                <a href="{{ link.url }}" target="_blank">{{ link.label }}</a><br>
+                            </small>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="guide-cover-portrait__legend-spacer pad-bottom" data-show-map-labels>
+            {% include 'components/guide/legend' with { spots: spots, inline: true } only %}
+        </div>
+        <div class="guide-cover-portrait__space" data-show-map-labels></div>
+        <div class="cover">
+            <div class="guide-cover-portrait__legend over-markers pad-bottom">
+                {% include 'components/guide/legend' with { spots: spots, inline: true } only %}
+            </div>
+        </div>
+    </div>
+    <div class="s-col-12 pad-bottom over-markers" data-hide-map-labels data-hide-markers>
+        {{ bio }}
+    </div>
+</div>

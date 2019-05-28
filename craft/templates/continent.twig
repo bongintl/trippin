@@ -1,0 +1,21 @@
+{% if not currentUser %}{% redirect "404" %}{% endif %}
+{% extends '_layout' %}
+{% block content %}
+    {% set continent = craft.categories.group('continents').slug(craft.request.getSegment(2)).first %}
+    <div class="grid grid--gutter">
+        {% for destination in craft.entries.section('destinations').relatedTo( continent ) %}
+            <div class="s-col-6 m-col-3 pad-bottom">
+                {% include 'components/destination-thumbnail' with { destination: destination } %}
+            </div>
+        {% endfor %}
+    </div>
+    <div class="grid grid--gutter">
+        {% for continent in craft.categories.group('continents') %}
+            {% for destination in craft.entries.section('destinations').relatedTo( continent ).limit( 1 ) %}
+                <div class="s-col-6 m-col-3 pad-bottom">
+                    {% include 'components/destination-thumbnail' with { destination: destination } %}
+                </div>
+            {% endfor %}
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -1,0 +1,87 @@
+{% if entry.comingSoon and not currentUser %}{% redirect "404" %}{% endif %}
+{% extends '_layout' %}
+{% block content %}
+    
+    {% do eagerLoadElements( entry, [
+        'city',
+        'city.continent',
+        'spots',
+        'spots.spot:images',
+        'spots.spotManual:images',
+        'bio',
+        'bio.image:image',
+        'coverImage',
+        craft.trippin.guide_thumbnail_elements | prefix( 'related.' ),
+        craft.trippin.city_thumbnail_elements | prefix( 'related.' )
+    ] | flatten ) %}
+    
+    {% import 'macros/colors' as colors %}
+    
+    {% set color = entry.city | length
+        ? entry.city[0].continent | length
+            ? entry.city[0].continent[0].color ?: '#FFFF00'
+            : '#FFFF00'
+        : '#FFFF00'
+    %}
+    
+    <div class="guide" style="--guide-color: {{ color }}; --dot-gradient: {{ colors.dotGradient( color ) }}">
+        
+        {% cache using key "map:#{ entry.id }:#{ entry.dateUpdated | date( 'U' ) }" %}
+            {% include 'components/map' with { spots: entry.spots } only %}
+        {% endcache %}
+        
+        {% set bio %}
+            {% include 'components/guide/bio' with { bio: entry.bio } only %}
+        {% endset %}
+        
+        {% set coverContent = {
+            image: entry.coverImage[0] ?? null,
+            city: entry.city | length
+                ? { title: entry.city[0].title, url: entry.city[0].url }
+                : null,
+            title: entry.title,
+            bio: bio,
+            socials: entry.socials,
+            spots: entry.spots | pluck('spotName')
+        } %}
+        
+        <div class="s-tall-hide">
+            {% include 'components/guide/cover-landscape' with coverContent only %}
+        </div>
+        <div class="s-wide-hide">
+            {% include 'components/guide/cover-portrait' with coverContent only %}
+        </div>
+        
+        <div class="spots over-markers" data-show-map-labels>
+            <div class="spots__map-trigger m-hide"></div>
+            <div class="spots__inner">
+                {% for spot in entry.spots %}
+                    {% include 'components/guide/spot' with { spot: spot, id: loop.index } only %}
+                {% endfor %}
+            </div>
+        </div>
+        
+        <div class="grid grid--gutter over-markers" data-hide-map-labels data-hide-markers>
+            {% if entry.city | length %}
+                <div class="s-col-6 m-col-4 l-col-3 pad-bottom">
+                    {% include 'components/city-thumbnail' with { city: entry.city[0] } only %}
+                </div>
+            {% endif %}
+            {% set related = entry.related | length < 3
+                ? entry.related | merge( craft.entries({
+                    section: 'guides',
+                    limit: 3 - entry.related | length,
+                    with: craft.trippin.guide_thumbnail_elements
+                }) )
+                : entry.related
+            %}
+            {% for guide in related %}
+                <div class="s-col-6 m-col-4 l-col-3 pad-bottom">
+                    {% include 'components/guide-thumbnail' with { guide: guide } only %}
+                </div>
+            {% endfor %}
+        </div>
+    
+    </div>
+    
+{% endblock %}

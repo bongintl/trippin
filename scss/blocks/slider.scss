@@ -1,0 +1,34 @@
+.slider-block {
+    height: calc(50vh - var( --gutter )  * 2) ;
+    width: calc(100% - var(--gutter));
+    white-space: nowrap;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    cursor: grab;
+    @include medium {
+        margin-left: var(--gutter);
+        height: calc(100vh - var( --gutter )  * 2) ;
+    }
+    &.dragging {
+        cursor: grabbing;
+    }
+    &__item {
+        border-radius: var( --corner-radius );
+        @extend .safari-border-fix;    
+        max-height: 100%;
+        overflow: hidden;
+        margin-right: var( --gutter );
+        &--portrait { display: inline-block; }
+        &--landscape { display: none; }
+        @include medium {
+            &--portrait { display: none; }
+            &--landscape { display: inline-block; }
+        }  
+    }
+    img {
+        height: 100%;
+    }
+}
+
+
+

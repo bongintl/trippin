@@ -1,0 +1,15 @@
+.video-block {
+    height: 56.25vw;
+    width: 100%;
+    position: relative;
+    border-radius: var( --corner-radius );
+    @extend .safari-border-fix;    
+    overflow: hidden;
+    
+    iframe {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+    }
+
+}

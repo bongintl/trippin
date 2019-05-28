@@ -1,0 +1,28 @@
+.spots {
+    pointer-events: none;
+    overflow: hidden;
+    &__map-trigger {
+        pointer-events: visible;
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100% * 2/12;
+        z-index: 400;
+        .spots--show-map & {
+            left: 100% * 10/12;
+        }
+        @include medium {
+            display: none;
+        }
+    }
+    &__inner {
+        transition: transform .33s;
+        .spots--show-map & {
+            transform: translateX( #{ 100% * 8/12 } );
+            @include medium {
+                transform: none;
+            }
+        }
+    }
+}
